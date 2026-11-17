@@ -1,0 +1,21 @@
+function onFormSubmit(e) {
+  // Replace this placeholder with your actual n8n Webhook URL (via ngrok or production URL)
+  var webhookUrl = "YOUR_N8N_WEBHOOK_URL";
+
+  // Get the submitted responses from the Google Form
+  var itemResponses = e.response.getItemResponses();
+  
+  var payload = {
+    "text": itemResponses[0].getResponse(),
+    "email": itemResponses[1].getResponse()
+  };
+
+  var options = {
+    "method": "post",
+    "contentType": "application/json",
+    "payload": JSON.stringify(payload)
+  };
+
+  // Send the POST request to the n8n Webhook
+  UrlFetchApp.fetch(webhookUrl, options);
+}
